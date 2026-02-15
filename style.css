@@ -1,0 +1,376 @@
+/* ==========================================
+   Finnish Quiz App - Styles
+   ========================================== */
+
+:root {
+  --primary: #4caf50;
+  --primary-dark: #45a049;
+  --secondary: #2196f3;
+  --danger: #f44336;
+  --success: #4caf50;
+  --bg: #f5f5f5;
+  --card-bg: #ffffff;
+  --text: #333333;
+  --text-light: #666666;
+  --border: #e0e0e0;
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Header */
+header {
+  text-align: center;
+  color: white;
+  margin-bottom: 30px;
+}
+
+header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+/* Screen Management */
+.screen {
+  display: none;
+}
+
+.screen.active {
+  display: block;
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Cards */
+.card {
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: var(--shadow);
+  margin-bottom: 20px;
+}
+
+.card h2 {
+  color: var(--text);
+  margin-bottom: 15px;
+  font-size: 1.8rem;
+}
+
+/* Topics List */
+.topics {
+  list-style: none;
+  margin: 20px 0;
+}
+
+.topics li {
+  padding: 10px;
+  margin: 8px 0;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid var(--primary);
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 14px 28px;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: white;
+  width: 100%;
+}
+
+.btn-primary:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(76, 175, 80, 0.3);
+}
+
+.btn-secondary {
+  background: var(--secondary);
+  color: white;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.btn-secondary:hover {
+  background: #1976d2;
+  transform: translateY(-2px);
+}
+
+.btn-option {
+  display: block;
+  width: 100%;
+  padding: 16px 20px;
+  margin: 10px 0;
+  background: #f8f9fa;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  cursor: pointer;
+  text-align: left;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.btn-option:hover:not(.disabled) {
+  background: #e3f2fd;
+  border-color: var(--secondary);
+  transform: translateX(5px);
+}
+
+.btn-option.correct {
+  background: #e8f5e9;
+  border-color: var(--success);
+  color: #2e7d32;
+}
+
+.btn-option.wrong {
+  background: #ffebee;
+  border-color: var(--danger);
+  color: #c62828;
+}
+
+.btn-option.disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Progress Bar */
+.progress-bar {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  margin-bottom: 15px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: white;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+  width: 0%;
+}
+
+/* Stats */
+.stats {
+  display: flex;
+  justify-content: space-between;
+  color: white;
+  margin-bottom: 20px;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+/* Question Card */
+.question-card {
+  text-align: center;
+}
+
+.question-type {
+  color: var(--text-light);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+.finnish-word {
+  font-size: 2.5rem;
+  color: var(--primary);
+  margin: 20px 0;
+  font-weight: bold;
+}
+
+.options {
+  margin-top: 25px;
+}
+
+/* Feedback */
+.feedback {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.feedback.correct {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.feedback.wrong {
+  background: #ffebee;
+  color: #c62828;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Results Screen */
+.results-card {
+  text-align: center;
+}
+
+.final-score {
+  margin: 30px 0;
+}
+
+.score-circle {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  font-weight: bold;
+  margin: 0 auto;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.stats-summary {
+  margin: 25px 0;
+  font-size: 1.2rem;
+}
+
+.stats-summary p {
+  margin: 10px 0;
+}
+
+.correct {
+  color: var(--success);
+  font-weight: bold;
+}
+.wrong {
+  color: var(--danger);
+  font-weight: bold;
+}
+
+.performance-msg {
+  margin: 20px 0;
+  padding: 15px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.performance-msg.excellent {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.performance-msg.good {
+  background: #e3f2fd;
+  color: #1565c0;
+}
+
+.performance-msg.needs-practice {
+  background: #fff3e0;
+  color: #ef6c00;
+}
+
+.btn-group {
+  display: flex;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.btn-group .btn {
+  flex: 1;
+}
+
+/* Mistakes Review */
+.mistakes-list {
+  max-height: 400px;
+  overflow-y: auto;
+  margin: 20px 0;
+}
+
+.mistake-item {
+  background: #ffebee;
+  border-left: 4px solid var(--danger);
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 8px;
+  text-align: left;
+}
+
+.mistake-item .finnish {
+  font-weight: bold;
+  color: #c62828;
+  font-size: 1.2rem;
+}
+
+.mistake-item .correct-answer {
+  color: var(--success);
+  font-weight: 600;
+}
+
+.mistake-item .your-answer {
+  color: var(--danger);
+  text-decoration: line-through;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 1.8rem;
+  }
+
+  .finnish-word {
+    font-size: 2rem;
+  }
+
+  .btn-group {
+    flex-direction: column;
+  }
+}
