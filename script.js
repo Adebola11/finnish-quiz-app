@@ -1,10 +1,10 @@
 /**
- * Finnish Vocabulary Quiz App
- * Data Structures and Algorithms - Web Development Practice
+ * Finnish Vocabulary Quiz App - FIXED VERSION
+ * Bug fix: Correct/wrong count now accurate
  */
 
 // ==========================================
-// VOCABULARY DATA (85 words)
+// VOCABULARY DATA (85 words) - same as before
 // ==========================================
 
 const vocabularyData = [
@@ -261,13 +261,12 @@ const vocabularyData = [
 ];
 
 // ==========================================
-// QUIZ STATE
+// QUIZ STATE - FIXED: Removed duplicate score variable
 // ==========================================
 
 let currentQuestion = 0;
-let score = 0;
-let correct = 0;
-let wrong = 0;
+let correct = 0; // Only track correct answers
+let wrong = 0; // Only track wrong answers
 let mistakes = [];
 let shuffledQuestions = [];
 
@@ -338,7 +337,8 @@ function updateProgress() {
   const progress = ((currentQuestion + 1) / shuffledQuestions.length) * 100;
   elements.progressFill.style.width = `${progress}%`;
   elements.currentQ.textContent = currentQuestion + 1;
-  elements.score.textContent = score;
+  // FIXED: Display correct count instead of separate score variable
+  elements.score.textContent = correct;
 }
 
 function loadQuestion() {
@@ -353,7 +353,7 @@ function loadQuestion() {
     const btn = document.createElement("button");
     btn.className = "btn-option";
     btn.textContent = option;
-    btn.onclick = () => checkAnswer(option, question.english);
+    btn.onclick = () => checkAnswer(option, question.english, question.finnish);
     elements.optionsContainer.appendChild(btn);
   });
 
@@ -363,52 +363,63 @@ function loadQuestion() {
   updateProgress();
 }
 
-function checkAnswer(selected, correct) {
+function checkAnswer(selected, correctAnswer, finnishWord) {
   const buttons = elements.optionsContainer.querySelectorAll(".btn-option");
 
   buttons.forEach((btn) => {
     btn.classList.add("disabled");
     btn.onclick = null;
 
-    if (btn.textContent === correct) {
+    if (btn.textContent === correctAnswer) {
       btn.classList.add("correct");
-    } else if (btn.textContent === selected && selected !== correct) {
+    } else if (btn.textContent === selected && selected !== correctAnswer) {
       btn.classList.add("wrong");
     }
   });
 
-  const isCorrect = selected === correct;
+  const isCorrect = selected === correctAnswer;
 
   if (isCorrect) {
-    score++;
-    correct++;
+    correct++; // Increment correct count
     elements.feedbackIcon.textContent = "✅";
     elements.feedbackText.textContent = "Correct!";
     elements.feedback.className = "feedback correct";
   } else {
-    wrong++;
+    wrong++; // Increment wrong count
     elements.feedbackIcon.textContent = "❌";
-    elements.feedbackText.textContent = `The correct answer is: ${correct}`;
+    elements.feedbackText.textContent = `The correct answer is: ${correctAnswer}`;
     elements.feedback.className = "feedback wrong";
 
+    // FIXED: Store mistake with all needed info
     mistakes.push({
-      finnish: shuffledQuestions[currentQuestion].finnish,
-      correct: correct,
+      finnish: finnishWord,
+      correct: correctAnswer,
       wrong: selected,
     });
   }
+
+  // FIXED: Update score display immediately
+  elements.score.textContent = correct;
 
   elements.feedback.classList.remove("hidden");
   elements.nextBtn.classList.remove("hidden");
 }
 
 function showResults() {
-  const percentage = Math.round((correct / shuffledQuestions.length) * 100);
+  const total = shuffledQuestions.length;
+  const percentage = Math.round((correct / total) * 100);
 
+  // FIXED: Ensure all numbers add up correctly
   elements.finalScore.textContent = percentage;
   elements.correctCount.textContent = correct;
   elements.wrongCount.textContent = wrong;
-  elements.totalCount.textContent = shuffledQuestions.length;
+  elements.totalCount.textContent = total;
+
+  // Verification: correct + wrong should equal total
+  console.log(`Correct: ${correct}, Wrong: ${wrong}, Total: ${total}`);
+  console.log(
+    `Verification: ${correct} + ${wrong} = ${correct + wrong} (should be ${total})`,
+  );
 
   let message = "";
   let className = "";
@@ -454,10 +465,9 @@ function showMistakes() {
 function startQuiz() {
   shuffledQuestions = shuffleArray(vocabularyData);
   currentQuestion = 0;
-  score = 0;
-  correct = 0;
-  wrong = 0;
-  mistakes = [];
+  correct = 0; // FIXED: Reset correct count
+  wrong = 0; // FIXED: Reset wrong count
+  mistakes = []; // FIXED: Reset mistakes
 
   showScreen("quiz");
   loadQuestion();
@@ -489,5 +499,5 @@ document
 // INITIALIZE
 // ==========================================
 
-console.log("🇫🇮 Finnish Quiz App Loaded!");
+console.log("🇫🇮 Finnish Quiz App Loaded! (FIXED VERSION)");
 console.log(`Total vocabulary words: ${vocabularyData.length}`);
